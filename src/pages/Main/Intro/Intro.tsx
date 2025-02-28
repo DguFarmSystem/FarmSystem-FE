@@ -111,7 +111,7 @@ const Intro = () => {
       </S.TrackList>
       <S.Apply>
         <S.ApplyButton $isMobile={isMobile} $isTablet={isTablet} onClick={() => setPopupOpen(true)}> 지원하기 </S.ApplyButton>
-        <S.ApplyDescription $isMobile={isMobile} $isTablet={isTablet}>2025년 3월 4일 모집 예정</S.ApplyDescription>
+        <S.ApplyDescription $isMobile={isMobile}>2025년 3월 4일 모집 예정</S.ApplyDescription>
       </S.Apply>
 
 
