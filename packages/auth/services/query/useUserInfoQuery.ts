@@ -13,7 +13,8 @@ export const useUserInfoQuery = (enabled: boolean = true) => {
     queryKey: ['userInfo'],
     queryFn: async () => {
       const res: ApiResponse<UserInfo> = await get('user/mypage');
-      setUser(res.data); 
+      setUser(res.data);
+       
       return res.data;
     },
     staleTime: 0, // 페이지 진입 시마다 항상 fetch 그 외에는 클라이언트 단에서 상태 관리 하도록 해놨음
