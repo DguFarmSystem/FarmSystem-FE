@@ -320,6 +320,7 @@ export const GoBackButton = styled.button<ResponsiveProps>`
   padding: ${({ $isApp }) => ($isApp ? '5px 17.5px 5px 18.5px' : '15px 30px')};
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   border-radius: ${({ $isApp }) => ($isApp ? '5px' : '10px')};
   background: var(--FarmSystem_DarkGrey, #999);
@@ -331,6 +332,7 @@ export const CreateButton = styled.button<ResponsiveProps>`
   padding: ${({ $isApp }) => ($isApp ? '5px 17.5px 5px 18.5px' : '15px 30px')};
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   border-radius: ${({ $isApp }) => ($isApp ? '5px' : '10px')};
   background: #5CD282;

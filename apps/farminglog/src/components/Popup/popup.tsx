@@ -166,6 +166,7 @@ const MyPageLayout: React.FC<PopupProps> = ({
               alt="로그아웃"
               width={isMobile ? 20 : 40}
               height={isMobile ? 20 : 40}
+              style={{ cursor: "pointer" }}
             />
           </button>
         )}
@@ -230,8 +231,7 @@ const MessageLayout: React.FC<PopupProps> = ({
 };
 
 /** 4) INFO 팝업 */
-const InfoLayout: React.FC<PopupProps> = ({
-}) => {
+const InfoLayout: React.FC<PopupProps> = () => {
   const { isMobile, isApp } = useMediaQueries();
 
   return (

@@ -183,6 +183,7 @@ export const ProfileContainer = styled.div<{ $isMobile: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
+  cursor: pointer;
 
   height: ${({ $isMobile }) => ($isMobile ? "50px" : "60px")};
   padding-right: ${({ $isMobile }) => ($isMobile ? "0px" : "20px")};

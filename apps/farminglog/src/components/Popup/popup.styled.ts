@@ -217,6 +217,7 @@ export const HeaderPin = styled.div<ResponsiveProps>`
   flex-shrink: 0;
   aspect-ratio: 1/1;
   margin: 3px 6px 0px 6px;
+  cursor: pointer;
 
   border-radius: ${({ $isApp }) => ($isApp ? '6px' : '100px')};
   background: #FF9A4D;

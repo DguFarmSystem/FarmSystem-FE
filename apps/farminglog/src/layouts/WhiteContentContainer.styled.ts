@@ -73,4 +73,5 @@ export const GoBackButton = styled.button<ResponsiveProps>`
   height: ${({ $isApp }) => ($isApp ? '24px' : '35px')};
   flex-shrink: 0;
   margin-left: ${({ $isApp }) => ($isApp ? '0px' : '25px')};
+  cursor: pointer;
 `;

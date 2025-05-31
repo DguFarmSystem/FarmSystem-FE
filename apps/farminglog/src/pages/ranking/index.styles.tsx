@@ -211,6 +211,7 @@ export const RankingItem = styled.div<{
   border-radius: 12px;
   padding: ${({ isApp }) => (isApp ? '20px' : '16px')};
   border: ${({ isMe }) => (isMe ? '3px solid #29D4A7' : 'none')};
+  cursor: pointer;
 `;
 
 

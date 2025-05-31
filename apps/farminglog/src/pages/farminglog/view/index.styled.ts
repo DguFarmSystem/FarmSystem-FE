@@ -122,6 +122,7 @@ export const FarmingLogWriteButton = styled.button<ResponsiveProps>`
   gap: 10px;
   flex-shrink: 0;
   aspect-ratio: 1/1;
+  cursor: pointer;
 
   border-radius: 35px;
   background: #5CD282;
@@ -132,4 +133,5 @@ export const FarmingLogWriteButtonImage = styled.img<ResponsiveProps>`
   height: 25px;
   flex-shrink: 0;
   aspect-ratio: 1/1;
+  cursor: pointer;
 `;
