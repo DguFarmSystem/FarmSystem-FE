@@ -5,7 +5,7 @@ import * as S from './ProjectDetail.styles';
 import { useEffect, useState } from 'react';
 import { DetailedProjectResponse } from '@/models/project';
 import { getProjectById } from '@/services/project';
-import DetailLayout from '@/layouts/DetailLayout/DetailLayout';
+import DetailLayout from '@/layouts/DetailLayout/ProjectDetailLayout';
 import Logger from '@/utils/Logger';
 
 const ProjectDetail: React.FC = () => {
@@ -65,7 +65,10 @@ const ProjectDetail: React.FC = () => {
         tag={getTrackName(project.track)}
         thumbnailUrl={project.thumbnailImageUrl}
         imageUrls={project.bodyImageUrl ? [project.bodyImageUrl] : []}
-        date={project.githubLink}
+        githubLink={project.githubLink}
+        deploymentLink={project.deploymentLink}
+        resourceLink={project.resourceLink}
+        participants={project.participants}
       />
     </S.Container>
   );
