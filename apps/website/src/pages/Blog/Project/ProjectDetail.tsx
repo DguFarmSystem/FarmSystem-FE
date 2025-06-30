@@ -20,6 +20,7 @@ const ProjectDetail: React.FC = () => {
       try {
         if (!projectId) return;
         const response = await getProjectById(parseInt(projectId));
+        console.log('Fetched Project Data:', response);
         
         if (response.data) {
           const projectData = response.data;
@@ -31,11 +32,6 @@ const ProjectDetail: React.FC = () => {
         Logger.error(err);
       } finally {
         setLoading(false);
-        return(
-          <S.Container $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
-          로딩에 실패했습니다.
-        </S.Container>
-        )
       }
     };
 
@@ -65,7 +61,6 @@ const ProjectDetail: React.FC = () => {
       </S.ProjectPageTitle>
       <DetailLayout
         title={project.title}
-        introduction={project.introduction}
         content={`${project.introduction}\n\n${project.content}`}
         tag={getTrackName(project.track)}
         thumbnailUrl={project.thumbnailImageUrl}

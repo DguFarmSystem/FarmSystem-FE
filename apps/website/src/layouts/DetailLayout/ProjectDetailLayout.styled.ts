@@ -58,22 +58,19 @@ export const TitleContainer = styled.div<LayoutProps>`
 
 export const ParticipantsAndTagContainer = styled.div<LayoutProps>`
   display: flex;
-  padding: 0px 0px;
-  gap: 5px;
-  flex-direction: column;
-  justify-content: flex-end;
+  padding: 10px 0px;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   flex: 1 0 0;
-  align-self: stretch;  
+  align-self: stretch;
   width: 100%;
-  max-width: 800px;
-  height: 60px;
-  
 `;
 
 export const Link = styled.a<LayoutProps>`
   display: flex;
   color: var(--FarmSystem_Black, #191919);
+  font-size: ${({ $isMobile }) => ($isMobile ? "12px": "16px")};
   font-style: normal;
   font-weight: 400;
   line-height: 30px; /* 150% */
@@ -83,9 +80,9 @@ export const Link = styled.a<LayoutProps>`
 
 export const Tag = styled.p<LayoutProps>`
   display: flex;
-  height: ${({ $isMobile }) => ($isMobile ? "34px": "40px")};
+  height: ${({ $isMobile }) => ($isMobile ? "32px": "40px")};
   padding: 5px 20px;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 
   border-radius: 15px;
@@ -93,7 +90,7 @@ export const Tag = styled.p<LayoutProps>`
 
   color: var(--FarmSystem_White, #FCFCFC);
   text-align: center;
-  font-size: ${({ $isMobile }) => ($isMobile ? "12px": "20px")};
+  font-size: ${({ $isMobile }) => ($isMobile ? "16px": "20px")};
   font-style: normal;
   font-weight: 400;
   line-height: 20px; /* 100% */
@@ -107,7 +104,7 @@ export const Participant = styled.p<LayoutProps>`
   color: var(--FarmSystem_Black, #191919);
   
   
-  font-size: ${({ $isMobile }) => ($isMobile ? "12px": "20px")};
+  font-size: ${({ $isMobile }) => ($isMobile ? "16px": "20px")};
   font-style: normal;
   font-weight: 400;
   line-height: 30px; /* 150% */
@@ -116,8 +113,10 @@ export const Participant = styled.p<LayoutProps>`
 
 export const Title = styled.h2<LayoutProps>`
   display: flex;
+  padding: 10px 0px;
   justify-content: start;
   align-items: center;
+  gap: 10px;
   align-self: stretch;
 
   color: var(--FarmSystem_Black, #191919);
@@ -129,29 +128,6 @@ export const Title = styled.h2<LayoutProps>`
   letter-spacing: -0.24px;
 
   width: 100%;
-  max-width: 800px;
-`;
-
-export const Introduction = styled.p<LayoutProps>`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  align-self: stretch;
-
-  color: var(--FarmSystem_Black, #191919);
-  font-family: "Pretendard Variable";
-  font-size: ${({ $isMobile }) => ($isMobile ? "16px": "20px")};
-  font-style: normal;
-  font-weight: 500;
-  line-height: 30px; /* 125% */
-  letter-spacing: -0.24px;
-
-  /* 한 줄 말줄임표 처리 */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  width: 50%;
   max-width: 800px;
 `;
 
@@ -193,47 +169,16 @@ export const LinkContainer = styled.div<LayoutProps>`
   gap: 10px;
   justify-content: flex-start;
   max-width: 800px;
-  width: 30%;
+  width: 100%;
 `;
 
 export const LinkIcon = styled.img<LayoutProps>`
-  width: ${({ $isMobile }) => ($isMobile ? "24px": "48px")};
-  height: ${({ $isMobile }) => ($isMobile ? "24px": "48px")};
+  width: ${({ $isMobile }) => ($isMobile ? "30px": "50px")};
+  height: ${({ $isMobile }) => ($isMobile ? "30px": "50px")};
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
   object-fit: cover;
   &:hover {
     transform: scale(1.1);
   }
-`;
-
-export const ContentContainer = styled.div<LayoutProps>`
-  display: flex;
-  margin: 0 auto;
-  padding: 10px 0px;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  flex: 1 0 0;
-  align-self: stretch;  
-  width: 100%;
-  height: 70px;
-  max-width: 800px;
-  
-`;
-
-export const TagContainer = styled.div<LayoutProps>`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  width: 100%;
-  min-width: 70%;
-`;
-
-export const ParticipantContainer = styled.div<LayoutProps>`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  width: 100%;
-  min-width: 70%;
 `;

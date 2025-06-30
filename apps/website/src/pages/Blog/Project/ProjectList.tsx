@@ -124,7 +124,7 @@ const ProjectList: React.FC = () => {
       {/* 프로젝트 카드 리스트 */}
         {projects && projects.length > 0 ? (
           <>
-            <S.ListContainer $isTablet={isTablet} $isBig={isBig} $isMobile={isMobile}>
+            <S.ListContainer $isTablet={isTablet} $isBig={isBig}>
               {projects.map((project) => (
                 <ProjectItem
                   key={project.projectId}

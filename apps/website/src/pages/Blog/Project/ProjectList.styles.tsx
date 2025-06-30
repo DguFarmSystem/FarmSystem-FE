@@ -7,7 +7,6 @@ export const Container = styled.div`
   align-items: center;
   gap: 20px;
   width: 100%;
-  justify-content: flex-start;
 `;
 
 /** 필터 영역 전체 컨테이너 */
@@ -102,28 +101,14 @@ export const DropdownItem = styled.div<{$isMobile: boolean; $isTablet: boolean;}
 
 /** 프로젝트 리스트(카드)들을 감싸는 컨테이너 */
 
-export const ListContainer = styled.div<{$isTablet: boolean; $isBig: boolean; $isMobile: boolean;}>`
+export const ListContainer = styled.div<{$isTablet: boolean; $isBig: boolean;}>`
   width: 100%;
   margin: 20px auto;
-  min-width: ${(props) => (props.$isMobile ? '240px' : props.$isTablet ? '400px' : '800px')};
-  max-width: ${(props) => (props.$isMobile ? '100%' : props.$isTablet ? '600px' : '1200px')};
+  min-width: ${(props) => (props.$isTablet ? '500px' : '800px')};
 
   display: grid;
-  grid-template-columns: ${(props) => {
-    if (props.$isMobile) return '1fr'; // 모바일: 한 컬럼
-    if (props.$isTablet) return '1fr'; // 태블릿: 한 컬럼
-    return 'repeat(auto-fit, 300px)'; // 데스크탑: 자동 너비 조정
-  }};
-  
-  gap: ${(props) => (props.$isMobile ? '15px' : props.$isTablet ? '20px' : '20px')} 
-       ${(props) => (props.$isMobile ? '0px' : props.$isTablet ? '0px' : props.$isBig ? '4vw' : '10vw')};
-  
-  justify-items: ${(props) => (props.$isMobile || props.$isTablet ? 'start' : 'start')};
-  
-  /* 태블릿에서 카드들이 중앙에 정렬되도록 */
-  ${(props) => props.$isTablet && `
-    padding: 0 20px;
-  `}
+  grid-template-columns: repeat(auto-fit, 300px); /*자동 너비 조정 */
+  gap: 20px ${(props) => (props.$isTablet ? "1vw": props.$isBig ? "4vw": "10vw")};
 `;
 
 /* 비어 있을 떄 출력하는 레이아웃 잡는 컨테이너 */
