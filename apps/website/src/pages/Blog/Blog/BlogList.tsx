@@ -44,17 +44,6 @@ if (import.meta.env.MODE === 'development' || window.location.hostname.startsWit
   blogData = [];
 }
 */
-let blogData = [
-  {
-    blogUrl: 'https://velog.io/',
-    tags: [{ category: BlogCategory.SEMINAR }],
-  },
-  {
-    blogUrl: 'https://blog.naver.com/educds/222797324049',
-    tags: [{ category: BlogCategory.PROJECT }],
-  },
-  
-];
 
 // 문자열을 BlogCategory로 변환하는 함수
 const convertStringToBlogCategory = (categoryStr: string): BlogCategory => {
@@ -149,14 +138,14 @@ const BlogList: React.FC = () => {
       </S.TableContainer>
 
       {/* 블로그 카드 리스트 */}
-      {blogData && blogData.content.length > 0 ? (
+      {true ? (
         <>
           <S.DescriptionContainer>
             <S.ListContainer $isTablet={isTablet} $isBig={isBig} $isMobile={isMobile}>
-              {blogData.content.map((blog, index) => (
+              {[{key: 1, category: ['seminar']}].map((blog, index) => (
                 <BlogItem 
-                  key={blog.blogId || index} 
-                  blogUrl={blog.link}
+                  key={1 || index} 
+                  blogUrl={'https://velog.io/@dongmin0204/'}
                   tags={blog.category && blog.category.length > 0 
                     ? blog.category.map(categoryStr => convertStringToBlogCategory(categoryStr))
                     : [BlogCategory.ETC]
