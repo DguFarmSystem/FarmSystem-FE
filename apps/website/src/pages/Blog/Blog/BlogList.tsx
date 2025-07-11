@@ -44,6 +44,17 @@ if (import.meta.env.MODE === 'development' || window.location.hostname.startsWit
   blogData = [];
 }
 */
+let blogData = [
+  {
+    blogUrl: 'https://velog.io/',
+    tags: [{ category: BlogCategory.SEMINAR }],
+  },
+  {
+    blogUrl: 'https://blog.naver.com/educds/222797324049',
+    tags: [{ category: BlogCategory.PROJECT }],
+  },
+  
+];
 
 // 문자열을 BlogCategory로 변환하는 함수
 const convertStringToBlogCategory = (categoryStr: string): BlogCategory => {
