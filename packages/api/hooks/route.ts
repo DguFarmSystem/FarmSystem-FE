@@ -17,7 +17,9 @@ type Meta = {
 const isValid = (m: Partial<Meta>) => !!m.title && !!m.image;
 
 const scrapeStatic = async (target: string): Promise<Partial<Meta>> => {
+  console.log(target);
   const html = await fetch(target, { cache: 'no-store' }).then(r => r.text());
+  console.log(html);
   const rx = (key: string) =>
     html.match(
       new RegExp(
@@ -67,6 +69,7 @@ const scrapeDynamic = async (target: string): Promise<Partial<Meta>> => {
 
 export async function GET(req: NextRequest) {
   const target = req.nextUrl.searchParams.get('url');
+  console.log(target);
   if (!target) {
     return NextResponse.json({ error: 'url query required' }, { status: 400 });
   }
