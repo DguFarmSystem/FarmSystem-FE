@@ -26,7 +26,7 @@ export const isValidResponse = (res: APIResponse | null): boolean => {
 // 프록시 서버 URL (CORS 헤더가 추가되어야 합니다)
 // corsproxy.io 는 요청 URL을 쿼리스트링으로 전달합니다.
 // const proxyUrl = 'https://corsproxy.io/?key=****&url=';
-const proxyUrl = 'https://corsproxy.io/?url='; // localhost용 프록시
+const proxyUrl = '/api/hooks?url='; // localhost용 프록시
 
 /**
  * extractMetaContent
