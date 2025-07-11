@@ -12,7 +12,7 @@ export interface MetaResponse {
 
 const isValid = (m: MetaResponse | null) => m && m.title && m.image;
 
-const previewApi = '/api/link-preview?url='; // 서버 라우트와 일치시켜 주세요
+const previewApi = '/api/hooks?url='; // 서버 라우트와 일치시켜 주세요
 
 export const useLinkPreview = (
   url: string,
