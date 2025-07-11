@@ -28,6 +28,7 @@ export const useLinkPreview = (
     setLoading(true);
 
     const reqUrl = previewApi + encodeURIComponent(url);
+    console.log(reqUrl);
 
     const fn = fetcher
       ? fetcher

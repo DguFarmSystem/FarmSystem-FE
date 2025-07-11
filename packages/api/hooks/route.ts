@@ -25,6 +25,12 @@ const scrapeStatic = async (target: string): Promise<Partial<Meta>> => {
         'i',
       ),
     )?.[1] || '';
+  console.log(rx('og:title'));
+  console.log(html.match(/<title[^>]*>(.*?)<\/title>/i)?.[1]);
+  console.log(rx('og:description'));
+  console.log(rx('og:image'));
+  console.log(rx('og:site_name'));
+  console.log(new URL(target).hostname);
   return {
     title: rx('og:title') || html.match(/<title[^>]*>(.*?)<\/title>/i)?.[1],
     description: rx('og:description'),
