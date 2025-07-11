@@ -13,7 +13,7 @@ const getApiBaseUrl = () => {
   }
 
   const baseDevUrl = import.meta.env?.VITE_BASE_DEV_URL || "https://api.dev.farmsystem.kr";
-  const baseProdUrl = import.meta.env?.VITE_BASE_URL || "https://api.farmsystem.kr";
+  //const baseProdUrl = import.meta.env?.VITE_BASE_URL || "https://api.farmsystem.kr";
 
   if (import.meta.env.MODE === 'development' || hostname.startsWith('dev.')) {
     baseUrl = baseDevUrl ;
