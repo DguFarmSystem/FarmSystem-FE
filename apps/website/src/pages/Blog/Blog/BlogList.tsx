@@ -145,7 +145,7 @@ const BlogList: React.FC = () => {
               {[{key: 1, category: ['seminar']}].map((blog, index) => (
                 <BlogItem 
                   key={1 || index} 
-                  blogUrl={'https://velog.io/@dongmin0204/'}
+                  blogUrl={'https://velog.io/@cjjss11/Next.js-Vercel%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-Next.js-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0'}
                   tags={blog.category && blog.category.length > 0 
                     ? blog.category.map(categoryStr => convertStringToBlogCategory(categoryStr))
                     : [BlogCategory.ETC]
