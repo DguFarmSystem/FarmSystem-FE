@@ -18,7 +18,7 @@ const getApiBaseUrl = () => {
   if (import.meta.env.MODE === 'development' || hostname.startsWith('dev.')) {
     baseUrl = baseDevUrl ;
   } else {
-    baseUrl = baseProdUrl;
+    baseUrl = baseDevUrl;
   }
   
   // URL이 '/'로 끝나면 'api/', 아니면 '/api/'
