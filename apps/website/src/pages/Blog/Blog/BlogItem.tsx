@@ -48,6 +48,7 @@ const getCategoryName = (category: BlogCategory): string => {
 const BlogItem: React.FC<BlogItemProps> = ({ blogUrl, tags }) => {
   // blogUrl을 기반으로 메타데이터를 fetching
   const { metadata, loading} = useLinkPreview(blogUrl);
+  console.log(metadata);
   const { isMobile, isTablet } = useMediaQueries();
 
   
