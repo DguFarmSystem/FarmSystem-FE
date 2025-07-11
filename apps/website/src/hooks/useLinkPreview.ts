@@ -117,6 +117,7 @@ export const useLinkPreview = (
 
     // 프록시를 통한 요청 URL 구성
     const proxyFetchUrl = proxyUrl + encodeURIComponent(url);
+    console.log(proxyFetchUrl);
 
     if (fetcher) {
       fetcher(proxyFetchUrl)
