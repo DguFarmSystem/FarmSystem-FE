@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import * as S from './BlogList.styles';
 import BlogItem, { BlogCategory } from './BlogItem';
 import useMediaQueries from '@/hooks/useMediaQueries';
-import { useBlogPage } from '@/hooks/useBlog';
+//import { useBlogPage } from '@/hooks/useBlog';
 
-import nextArrow_left from '@/assets/Icons/pagenation_2.png';
-import nextArrow_right from '@/assets/Icons/pagenation_2.png';
-import jumpArrow_left from '@/assets/Icons/pagenation_1.png';
-import jumpArrow_right from '@/assets/Icons/pagenation_1.png';
+// import nextArrow_left from '@/assets/Icons/pagenation_2.png';
+// import nextArrow_right from '@/assets/Icons/pagenation_2.png';
+// import jumpArrow_left from '@/assets/Icons/pagenation_1.png';
+// import jumpArrow_right from '@/assets/Icons/pagenation_1.png';
 
 /** 샘플용 더미 데이터 */
 /*
@@ -70,64 +70,64 @@ const BlogList: React.FC = () => {
   const isBig = !isMobile; // 모바일이 아닐 때 큰 화면 기준
 
   // 페이지네이션 상태
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const pageSize = 12; // 12개씩 페이지네이션
+  // const [currentPage, setCurrentPage] = useState<number>(0);
+  // const pageSize = 12; // 12개씩 페이지네이션
 
   // 블로그 데이터 가져오기
-  const { data: blogData, pageInfo, loading, error } = useBlogPage({
-    page: currentPage,
-    size: pageSize,
-  });
+  // const { data: blogData, pageInfo, loading, error } = useBlogPage({
+  //   page: currentPage,
+  //   size: pageSize,
+  // });
 
   // 페이지네이션 핸들러
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  // const handlePageChange = (page: number) => {
+  //   setCurrentPage(page);
+  // };
 
-  const handlePreviousPage = () => {
-    if (pageInfo && pageInfo.hasPreviousPage) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  // const handlePreviousPage = () => {
+  //   if (pageInfo && pageInfo.hasPreviousPage) {
+  //     setCurrentPage(currentPage - 1);
+  //   }
+  // };
 
-  const handleNextPage = () => {
-    if (pageInfo && pageInfo.hasNextPage) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  // const handleNextPage = () => {
+  //   if (pageInfo && pageInfo.hasNextPage) {
+  //     setCurrentPage(currentPage + 1);
+  //   }
+  // };
 
   // 페이지 번호 배열 생성
-  const generatePageNumbers = () => {
-    if (!pageInfo) return [];
+  // const generatePageNumbers = () => {
+  //   if (!pageInfo) return [];
     
-    const totalPages = pageInfo.totalPages;
-    const current = pageInfo.currentPage;
-    const pages: number[] = [];
+  //   const totalPages = pageInfo.totalPages;
+  //   const current = pageInfo.currentPage;
+  //   const pages: number[] = [];
     
-    // 최대 7개의 페이지 번호만 표시
-    const maxVisiblePages = 3;
-    let startPage = Math.max(0, current - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages - 1, startPage + maxVisiblePages - 1);
+  //   // 최대 7개의 페이지 번호만 표시
+  //   const maxVisiblePages = 3;
+  //   let startPage = Math.max(0, current - Math.floor(maxVisiblePages / 2));
+  //   let endPage = Math.min(totalPages - 1, startPage + maxVisiblePages - 1);
     
-    // 시작 페이지 조정
-    if (endPage - startPage < maxVisiblePages - 1) {
-      startPage = Math.max(0, endPage - maxVisiblePages + 1);
-    }
+  //   // 시작 페이지 조정
+  //   if (endPage - startPage < maxVisiblePages - 1) {
+  //     startPage = Math.max(0, endPage - maxVisiblePages + 1);
+  //   }
     
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
-    }
+  //   for (let i = startPage; i <= endPage; i++) {
+  //     pages.push(i);
+  //   }
     
-    return pages;
-  };
+  //   return pages;
+  // };
 
-  if (loading) {
-    return <div>로딩 중...</div>;
-  }
+  // if (loading) {
+  //   return <div>로딩 중...</div>;
+  // }
 
-  if (error) {
-    return <div>에러가 발생했습니다: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>에러가 발생했습니다: {error.message}</div>;
+  // }
 
   return (
     <S.Container>
@@ -156,7 +156,7 @@ const BlogList: React.FC = () => {
           </S.DescriptionContainer>
           
               {/* 페이지네이션 */}
-              {pageInfo && pageInfo.totalPages > 0 && (
+              {/* {pageInfo && pageInfo.totalPages > 0 && (
               <S.PaginationContainer>
                 <S.PaginationButton>
                   <S.PaginationButtonText
@@ -206,7 +206,7 @@ const BlogList: React.FC = () => {
                   </S.PaginationButtonText>
                 </S.PaginationButton>
               </S.PaginationContainer>
-            )}
+            )} */}
         </>
       ) : (
         <S.TextContainer $isMobile={isMobile}>
