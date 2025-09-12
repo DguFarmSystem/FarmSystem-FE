@@ -1,4 +1,11 @@
 {
   "extends": "../../packages/config/tsconfig.app.json",
-  "include": ["src"]
+  "include": ["src"],
+  "compilerOptions": {
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
 }
