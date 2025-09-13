@@ -4,9 +4,12 @@ import SomethingWentWrongPage from '@/components/status/error/SomethingWentWrong
 import { UnknownErrorBoundary } from '@/components/status/error/UnknownErrorBoundary';
 import { Suspense } from 'react';
 import Loader from '@/components/status/loading/Loader';
-import type { ROUTE_TYPE } from '@/constants/path';
+import { PATH, type ROUTE_TYPE } from '@/constants/path';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+
+import LoginPage from '@/pages/auth/Login';
+import SocialRedirect from '@/pages/auth/SocialLoginRedirect';
 
 const createAuthRouter = (routeType: ROUTE_TYPE, children: RouteObject[]) => {
   const authRouter = children.map((child: RouteObject) => ({
@@ -32,7 +35,16 @@ const router = createBrowserRouter([
         element: <RootPage />,
       },
       ...createAuthRouter('PRIVATE', [{}]),
-      ...createAuthRouter('PUBLIC', [{}]),
+      ...createAuthRouter('PUBLIC', [
+        {
+          path: PATH.AUTH_LOGIN,
+          element: <LoginPage />,
+        },
+        {
+          path: PATH.AUTH_SOCIAL_REDIRECT,
+          element: <SocialRedirect />,
+        },
+      ]),
       {
         path: '*',
         element: <SomethingWentWrongPage />,

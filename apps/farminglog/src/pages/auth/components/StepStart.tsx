@@ -52,33 +52,33 @@ export default function StepStart() {
   };
 
   // step=input 감지해서 자동 인증 단계 진입
-useEffect(() => {
-  const step = searchParams.get('step');
-  if (step === 'input') {
-    setStep('input');
-    navigate('/', { replace: true });
-  }
-}, [searchParams, setStep, navigate]);
-
-// 회원 인증 클릭 핸들러
-const handleVerifyClick = () => {
-  const origin = window.location.origin;
-  const verifyUrl = `${origin}/?step=input`;
-
-  if (isKakaoInApp()) {
-    if (isAndroid()) {
-      const intentUrl = `intent://${origin.replace(/^https?:\/\//, '')}/?step=input#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(
-        verifyUrl
-      )};end;`;
-      window.location.href = intentUrl;
-    } else if (isIOS()) {
-      window.location.href = `kakaotalk://web/openExternal?url=${encodeURIComponent(verifyUrl)}`;
+  useEffect(() => {
+    const step = searchParams.get('step');
+    if (step === 'input') {
+      setStep('input');
+      navigate('/', { replace: true });
     }
-    return;
-  }
+  }, [searchParams, setStep, navigate]);
 
-  setStep('input');
-};
+  // 회원 인증 클릭 핸들러
+  const handleVerifyClick = () => {
+    const origin = window.location.origin;
+    const verifyUrl = `${origin}/?step=input`;
+
+    if (isKakaoInApp()) {
+      if (isAndroid()) {
+        const intentUrl = `intent://${origin.replace(/^https?:\/\//, '')}/?step=input#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(
+          verifyUrl,
+        )};end;`;
+        window.location.href = intentUrl;
+      } else if (isIOS()) {
+        window.location.href = `kakaotalk://web/openExternal?url=${encodeURIComponent(verifyUrl)}`;
+      }
+      return;
+    }
+
+    setStep('input');
+  };
 
   return (
     <S.Container>
@@ -87,9 +87,7 @@ const handleVerifyClick = () => {
         <S.LogoText $isMobile={isMobile} />
       </S.LogoWrapper>
 
-      <S.SubText $isMobile={isMobile}>
-        Farm System 회원들을 위한 커뮤니티
-      </S.SubText>
+      <S.SubText $isMobile={isMobile}>Farm System 회원들을 위한 커뮤니티</S.SubText>
 
       <S.ButtonGroup $isMobile={isMobile}>
         <AuthButton provider="google" onClick={() => handleClick('GOOGLE')} />
