@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
-import { useAuthStore } from '@repo/auth/stores/useAuthStore';
-import { useSocialLoginPostMutation } from '@repo/auth/services/mutation/useSocialLoginPostMutation';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useSocialLoginPostMutation } from '@/apis/auth/useSocialLoginPost.mutation';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -21,6 +21,7 @@ export default function SocialRedirect() {
   const { mutateAsync: socialLogin } = useSocialLoginPostMutation();
 
   const [error, setError] = useState<{ title: string; message: string } | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (hasCalled.current) return;
@@ -35,11 +36,13 @@ export default function SocialRedirect() {
     }
 
     const login = async () => {
+      setLoading(true);
       try {
         await socialLogin({ code, socialType: provider });
-        navigate('/home');
+        navigate('/');
       } catch (err: unknown) {
         const status = (err as { status?: number })?.status;
+        console.error(err);
         if (status === 404) {
           setError({ title: '가입되지 않은 사용자', message: '회원 인증 후 로그인해주세요.' });
         } else if (status === 409) {
@@ -49,6 +52,8 @@ export default function SocialRedirect() {
         } else {
           setError({ title: '로그인 오류', message: '계속 실패하면 운영진에게 문의해주세요.' });
         }
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -57,6 +62,12 @@ export default function SocialRedirect() {
 
   return (
     <div className="flex justify-center items-center h-screen w-full">
+      {loading && (
+        <div className="flex items-center justify-center space-x-2">
+          <div className="w-4 h-4 rounded-full animate-spin border-2 border-t-transparent border-blue-500"></div>
+          <span>로딩 중...</span>
+        </div>
+      )}
       {error && (
         <AlertDialog open={true} onOpenChange={() => navigate('/')}>
           <AlertDialogContent>

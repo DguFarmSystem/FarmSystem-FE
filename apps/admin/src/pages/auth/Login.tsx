@@ -8,7 +8,7 @@ import { useSocialLogin } from '@repo/auth/hooks/useSocialLogin';
 import { isKakaoInApp, isAndroid, isIOS } from '@/lib/detect';
 
 export default function LoginPage() {
-  const { handleLogin } = useSocialLogin();
+  const { handleLogin } = useSocialLogin('ADMIN');
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 

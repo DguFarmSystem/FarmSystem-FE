@@ -4,7 +4,7 @@ export type ROUTE_TYPE = 'PRIVATE' | 'PUBLIC';
 export const PATH = {
   ROOT: '/',
   AUTH_LOGIN: '/auth/login',
-  AUTH_SOCIAL_REDIRECT: '/auth/social-redirect',
+  AUTH_SOCIAL_REDIRECT: '/auth/redirect',
   APPLY: '/apply',
   BLOGS: '/blogs',
   NEWS: '/news',
