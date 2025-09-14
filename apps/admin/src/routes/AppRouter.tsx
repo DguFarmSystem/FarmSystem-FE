@@ -10,6 +10,13 @@ import PublicRoute from './PublicRoute';
 
 import LoginPage from '@/pages/auth/Login';
 import SocialRedirect from '@/pages/auth/SocialLoginRedirect';
+import DashboardLayout from '@/layouts/DashboardLayout';
+
+import DashboardPage from '@/pages/dashboard/Dashboard';
+import UsersPage from '@/pages/dashboard/Users';
+import BlogsPage from '@/pages/dashboard/Blogs';
+import NewsPage from '@/pages/dashboard/News';
+import ApplyPage from '@/pages/dashboard/Apply';
 
 const createAuthRouter = (routeType: ROUTE_TYPE, children: RouteObject[]) => {
   const authRouter = children.map((child: RouteObject) => ({
@@ -34,7 +41,34 @@ const router = createBrowserRouter([
         index: true,
         element: <RootPage />,
       },
-      ...createAuthRouter('PRIVATE', [{}]),
+      ...createAuthRouter('PRIVATE', [
+        {
+          path: PATH.DASHBOARD,
+          element: <DashboardLayout />,
+          children: [
+            {
+              index: true,
+              element: <DashboardPage />,
+            },
+            {
+              path: PATH.DASHBOARD_USERS,
+              element: <UsersPage />,
+            },
+            {
+              path: PATH.DASHBOARD_BLOGS,
+              element: <BlogsPage />,
+            },
+            {
+              path: PATH.DASHBOARD_NEWS,
+              element: <NewsPage />,
+            },
+            {
+              path: PATH.DASHBOARD_APPLY,
+              element: <ApplyPage />,
+            },
+          ],
+        },
+      ]),
       ...createAuthRouter('PUBLIC', [
         {
           path: PATH.AUTH_LOGIN,

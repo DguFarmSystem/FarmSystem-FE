@@ -5,8 +5,10 @@ export const PATH = {
   ROOT: '/',
   AUTH_LOGIN: '/auth/login',
   AUTH_SOCIAL_REDIRECT: '/auth/redirect',
-  APPLY: '/apply',
-  BLOGS: '/blogs',
-  NEWS: '/news',
-  USERS: '/users',
+
+  DASHBOARD: '/dashboard',
+  DASHBOARD_APPLY: '/dashboard/apply',
+  DASHBOARD_BLOGS: '/dashboard/blogs',
+  DASHBOARD_NEWS: '/dashboard/news',
+  DASHBOARD_USERS: '/dashboard/users',
 } as const;

@@ -37,6 +37,7 @@ export const useSocialLoginPostMutation = () => {
 
       const { accessToken, refreshToken } = data;
       setToken(accessToken);
+      localStorage.setItem('accessToken', accessToken);
       Cookies.set('refreshToken', refreshToken, {
         secure: true,
         sameSite: 'Strict',
