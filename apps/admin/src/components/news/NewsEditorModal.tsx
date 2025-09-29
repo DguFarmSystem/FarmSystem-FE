@@ -1,5 +1,11 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -29,37 +35,44 @@ export default function NewsEditorModal({
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // 상세 데이터 로드
+  const draftKey = `news-draft-${newsId ?? 'new'}`;
+
+  // 쓰기
   useEffect(() => {
-    if (!isOpen) return; // 모달이 열릴 때만 처리
+    // detail이 아직 없으면 저장하지 않음
+    if (!isOpen) return;
+    if (newsId) return; // 수정 모드인데 서버 데이터가 안왔으면 저장 금지
 
-    const draftKey = `news-draft-${newsId ?? 'new'}`;
+    localStorage.setItem(draftKey, JSON.stringify({ title, content, tags, imageUrls }));
+  }, [title, content, tags, imageUrls, draftKey, detail, isOpen]);
+
+  // 읽기
+  useEffect(() => {
+    if (!isOpen) return;
     const draft = localStorage.getItem(draftKey);
-    const dataFromDraft = draft ? JSON.parse(draft) : null;
-
-    if (dataFromDraft) {
-      // 로컬 draft가 있으면 우선 적용
-      setTitle(dataFromDraft.title ?? '');
-      setContent(dataFromDraft.content ?? '');
-      setTags(dataFromDraft.tags ?? []);
-      setImageUrls(dataFromDraft.imageUrls ?? []);
+    if (draft) {
+      const data = JSON.parse(draft);
+      setTitle(data.title ?? '');
+      setContent(data.content ?? '');
+      setTags(data.tags ?? []);
+      setThumbnailUrl(data.thumbnailUrl ?? '');
+      setImageUrls(data.imageUrls ?? []);
     } else if (detail) {
-      // draft가 없으면 서버 데이터로 초기화
       setTitle(detail.title || '');
       setContent(detail.content || '');
       setTags(detail.tags || []);
+      setThumbnailUrl(detail.thumbnailUrl || '');
       setImageUrls(detail.imageUrls || []);
     } else {
-      // 신규 작성 모드
       setTitle('');
       setContent('');
       setTags([]);
+      setThumbnailUrl('');
       setImageUrls([]);
     }
-
     setTagInput('');
     setSelectedImage(null);
-  }, [isOpen, detail, newsId]);
+  }, [isOpen, detail, draftKey]);
 
   const handleAddTag = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' || e.key === ',') {
@@ -82,14 +95,6 @@ export default function NewsEditorModal({
     onClose();
   };
 
-  // 입력값이 바뀔 때마다 로컬 스토리지에 임시 저장
-  useEffect(() => {
-    localStorage.setItem(
-      `news-draft-${newsId}`,
-      JSON.stringify({ title, content, tags, imageUrls }),
-    );
-  }, [title, content, tags, imageUrls]);
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
@@ -97,6 +102,9 @@ export default function NewsEditorModal({
       >
         <DialogHeader>
           <DialogTitle>{newsId ? '뉴스 수정' : '뉴스 추가'}</DialogTitle>
+          <DialogDescription>
+            {newsId ? '뉴스를 수정하고 저장하세요.' : '새로운 뉴스를 작성하고 저장하세요.'}
+          </DialogDescription>
         </DialogHeader>
 
         {isLoading && newsId ? (
