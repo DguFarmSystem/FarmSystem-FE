@@ -1,3 +1,8 @@
+import NewsTable from '@/components/news/NewsListTable';
 export default function NewsPage() {
-  return <div>News Page</div>;
+  return (
+    <div>
+      <NewsTable />
+    </div>
+  );
 }
