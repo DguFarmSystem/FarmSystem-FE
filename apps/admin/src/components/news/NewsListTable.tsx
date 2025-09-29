@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { NewsDto, NewsItemMutationDto } from '@/apis/news/dto';
 import { useAllNews } from '@/apis/news/queries/useAllNews.qurey';
+import { useCreateNews } from '@/apis/news/mutations/useNewsCreate.mutation';
 import { useEditNews } from '@/apis/news/mutations/useNewsEdit.mutation';
 import { useDeleteNews } from '@/apis/news/mutations/useNewsDelete.mutation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,6 +22,7 @@ import NewsEditorModal from './NewsEditorModal'; // 모달 컴포넌트 import
 
 export default function NewsTable() {
   const { data: news, isLoading, isError, refetch, isRefetching } = useAllNews();
+  const createNewsMutation = useCreateNews();
   const editNewsMutation = useEditNews();
   const deleteNewsMutation = useDeleteNews();
 
@@ -72,16 +74,13 @@ export default function NewsTable() {
   };
 
   const handleModalSubmit = (data: NewsItemMutationDto) => {
-    if (!editingNews) return;
-
-    editNewsMutation.mutate(
-      { newsId: editingNews.newsId, data },
-      {
-        onSuccess: () => {
-          refetch();
-        },
-      },
-    );
+    if (editingNews) {
+      // 수정
+      editNewsMutation.mutate({ newsId: editingNews.newsId, data }, { onSuccess: () => refetch() });
+    } else {
+      // 새 뉴스 생성
+      createNewsMutation.mutate(data, { onSuccess: () => refetch() });
+    }
   };
 
   const handleAddNew = () => {
