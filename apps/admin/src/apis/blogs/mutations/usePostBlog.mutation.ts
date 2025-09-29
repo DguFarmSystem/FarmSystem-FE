@@ -1,4 +1,3 @@
-import { ResponseDto } from '@/apis/dto';
 import { BlogRequestDto } from '@/apis/blogs/dto';
 import { useMutation } from '@tanstack/react-query';
 import { instance } from '@/apis/instance';

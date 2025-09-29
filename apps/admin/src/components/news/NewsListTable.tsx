@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react';
-import { NewsDto } from '@/apis/news/dto';
+import { NewsDto, NewsItemMutationDto } from '@/apis/news/dto';
 import { useAllNews } from '@/apis/news/queries/useAllNews.qurey';
+import { useEditNews } from '@/apis/news/mutations/useNewsEdit.mutation';
+import { useDeleteNews } from '@/apis/news/mutations/useNewsDelete.mutation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
@@ -11,38 +13,42 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 import Loader from '@/components/status/loading/Loader';
 import { format } from 'date-fns';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, RotateCcw, Edit, Trash2, Plus } from 'lucide-react';
+import NewsEditorModal from './NewsEditorModal'; // 모달 컴포넌트 import
 
 export default function NewsTable() {
-  const { data: news, isLoading, isError } = useAllNews();
+  const { data: news, isLoading, isError, refetch, isRefetching } = useAllNews();
+  const editNewsMutation = useEditNews();
+  const deleteNewsMutation = useDeleteNews();
+
   const [sortKey, setSortKey] = useState<keyof NewsDto>('newsId');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // 정렬 토글 함수
+  // 모달 상태
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingNews, setEditingNews] = useState<NewsDto | undefined>(undefined);
+
   const handleSort = (key: keyof NewsDto) => {
-    if (sortKey === key) {
-      setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
-    } else {
+    if (sortKey === key) setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
+    else {
       setSortKey(key);
       setSortOrder('asc');
     }
   };
 
-  // 정렬된 데이터
   const sortedNews = useMemo(() => {
     if (!news) return [];
     return [...news].sort((a, b) => {
       const aValue = a[sortKey];
       const bValue = b[sortKey];
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
+      if (typeof aValue === 'string' && typeof bValue === 'string')
         return sortOrder === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-      }
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
+      if (typeof aValue === 'number' && typeof bValue === 'number')
         return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
-      }
       return 0;
     });
   }, [news, sortKey, sortOrder]);
@@ -50,13 +56,68 @@ export default function NewsTable() {
   if (isLoading) return <Loader />;
   if (isError) return <div>뉴스 목록을 불러오는 중 오류가 발생했습니다.</div>;
 
+  const handleEditClick = (item: NewsDto) => {
+    setEditingNews(item);
+    setModalOpen(true);
+  };
+
+  const handleDelete = (newsId: number) => {
+    if (!confirm('정말 삭제하시겠습니까?')) return;
+    deleteNewsMutation.mutate(
+      { newsId },
+      {
+        onSuccess: () => refetch(),
+      },
+    );
+  };
+
+  const handleModalSubmit = (data: NewsItemMutationDto) => {
+    if (!editingNews) return;
+
+    editNewsMutation.mutate(
+      { newsId: editingNews.newsId, data },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      },
+    );
+  };
+
+  const handleAddNew = () => {
+    setEditingNews(undefined);
+    setModalOpen(true);
+  };
+
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>뉴스 목록</CardTitle>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAddNew}
+            className="flex items-center gap-1"
+          >
+            <Plus className="w-4 h-4" />
+            추가
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => refetch()}
+            disabled={isRefetching}
+            className="flex items-center gap-1"
+          >
+            <RotateCcw className={`w-4 h-4 ${isRefetching ? 'animate-spin' : ''}`} />
+            {isRefetching ? '갱신 중...' : '새로 고침'}
+          </Button>
+        </div>
       </CardHeader>
+
       <CardContent>
-        {sortedNews && sortedNews.length > 0 ? (
+        {sortedNews.length > 0 ? (
           <Table>
             <TableHeader>
               <TableRow>
@@ -66,8 +127,10 @@ export default function NewsTable() {
                 <TableHead>태그</TableHead>
                 <SortableHead onClick={() => handleSort('createdAt')} label="작성일" />
                 <SortableHead onClick={() => handleSort('updatedAt')} label="수정일" />
+                <TableHead>액션</TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
               {sortedNews.map(item => (
                 <TableRow key={item.newsId}>
@@ -88,6 +151,26 @@ export default function NewsTable() {
                   <TableCell>{item.tags.join(', ')}</TableCell>
                   <TableCell>{format(new Date(item.createdAt), 'yyyy-MM-dd HH:mm')}</TableCell>
                   <TableCell>{format(new Date(item.updatedAt), 'yyyy-MM-dd HH:mm')}</TableCell>
+                  <TableCell className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleEditClick(item)}
+                      className="flex items-center gap-1"
+                    >
+                      <Edit className="w-4 h-4" />
+                      수정
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => handleDelete(item.newsId)}
+                      className="flex items-center gap-1"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                      삭제
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -97,7 +180,7 @@ export default function NewsTable() {
         )}
       </CardContent>
 
-      {/* ✅ 이미지 클릭 시 모달 */}
+      {/* 이미지 클릭 모달 */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent className="max-w-3xl p-0 bg-transparent shadow-none border-none">
           {selectedImage && (
@@ -109,6 +192,14 @@ export default function NewsTable() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* 뉴스 추가/수정 모달 */}
+      <NewsEditorModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handleModalSubmit}
+        newsId={editingNews?.newsId}
+      />
     </Card>
   );
 }

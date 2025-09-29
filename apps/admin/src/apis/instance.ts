@@ -1,9 +1,17 @@
 import axios from 'axios';
+import { PATH } from '@/constants/path';
 
 const BACKEND_URL = import.meta.env.VITE_BASE_URL;
+const DEV_BACKEND_URL = import.meta.env.VITE_BASE_DEV_URL;
+const isDevelopment = import.meta.env.DEV;
+
+// 개발 환경에서는 로컬 백엔드, 그 외에는 배포된 백엔드 사용
+export const getBackendUrl = () => {
+  return isDevelopment ? DEV_BACKEND_URL : BACKEND_URL;
+};
 
 export const instance = axios.create({
-  baseURL: BACKEND_URL,
+  baseURL: getBackendUrl(),
   responseType: 'json',
   headers: { 'Content-Type': 'application/json' },
   timeout: 10000,
@@ -84,7 +92,7 @@ instance.interceptors.response.use(
         processQueue(refreshError, null);
         localStorage.setItem('redirectedFrom', window.location.href);
         localStorage.removeItem('accessToken');
-        window.location.href = '/login';
+        window.location.href = PATH.AUTH_LOGIN;
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
