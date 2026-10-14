@@ -136,7 +136,7 @@ const Intro = () => {
           isOpen={isPopupOpen} 
           onClose={() => setPopupOpen(false)} 
           title={"지금은 모집 기간이 아니에요."} 
-          content={"3월 13일까지 지원 가능해요."} 
+          content={"다음 모집 일정은 소식에서 안내해 드릴게요."} 
         />
       </S.AppContainer>
     );
@@ -169,7 +169,6 @@ const Intro = () => {
         >
           지원하기
         </S.ApplyButton>
-        <S.ApplyDescription $isMobile={isMobile}>2025년 3월 13일까지 모집 예정</S.ApplyDescription>
       </S.Apply>
 
 
@@ -179,7 +178,7 @@ const Intro = () => {
           isOpen={isPopupOpen} 
           onClose={() => setPopupOpen(false)}  
           title={"지금은 모집 기간이 아니에요."} 
-          content={"3월 13일까지 지원 가능해요."} 
+          content={"다음 모집 일정은 소식에서 안내해 드릴게요."} 
         />
       )}
     </S.Container>

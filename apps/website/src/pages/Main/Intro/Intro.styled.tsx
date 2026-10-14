@@ -203,14 +203,6 @@ export const ApplyButton = styled.button<{
     }
 `;
 
-export const ApplyDescription = styled.div<{ $isMobile: boolean }>`
-    font-size: ${({ $isMobile }) => ($isMobile ? "12px" : "16px")};
-    margin-top: 15px;
-    color: #E8F5E9;
-    text-align: center;
-
-`;
-
 export const Bud = styled.div<{ $isMobile: boolean; $isTablet: boolean }>`
     font-size: ${({ $isMobile, $isTablet }) => ($isMobile ? "40px" : $isTablet ? "50px" : "64px")};
     margin-left: ${({ $isMobile, $isTablet }) => ($isMobile ? "30px" : $isTablet ? "40px" : "50px")};

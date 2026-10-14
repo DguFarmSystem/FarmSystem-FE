@@ -38,11 +38,6 @@ const BottomInfo = () => {
           <S.RequirementTitle $isApp={isApp} $isMobile={isMobile}>월요일 저녁, 같이 성장해요.</S.RequirementTitle>
           <S.RequirementText $isApp={isApp} $isMobile={isMobile}><S.Highlight>매주 월요일 19시</S.Highlight>부터 약 2시간 동안 정기 모임이 열려요. 원활한 팀워크를 위해 필참이 원칙이에요! 함께 성장할 준비되셨나요? </S.RequirementText>
         </S.RequirementItem>
-        <S.RequirementItem>
-          <S.RequirementTitle $isApp={isApp} $isMobile={isMobile}>언제 모집하나요?</S.RequirementTitle>
-          <S.RequirementText $isApp={isApp} $isMobile={isMobile}>2025년 3월 4일부터 13일까지 Farm System 4기를 모집하고 있어요. 😉</S.RequirementText>
-          {/*2025년 3월 4일부터 Farm System 4기를 공개 모집할 예정이에요! 조금만 기다려 주세요 😉 */}
-        </S.RequirementItem>
         <S.ButtonContainer $isApp={isApp} $isMobile={isMobile}>
           <S.ApplyButton 
             $isApp={isApp}
@@ -67,7 +62,7 @@ const BottomInfo = () => {
         isOpen={isPopupOpen} 
         onClose={() => setPopupOpen(false)} 
         title={"지금은 모집 기간이 아니에요."} 
-        content={"3월 13일까지 지원 가능해요."} 
+        content={"다음 모집 일정은 소식에서 안내해 드릴게요."} 
       />
     </S.BottomInfoContainer>
   );
