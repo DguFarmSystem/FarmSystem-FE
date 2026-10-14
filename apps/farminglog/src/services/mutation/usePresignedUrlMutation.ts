@@ -8,6 +8,7 @@ interface PresignedUrlRequest {
 
 interface PresignedUrlResponse {
   presignedUrl: string;
+  fileUrl: string;
 }
 
 export const usePresignedUrlMutation = () => {
