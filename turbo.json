@@ -18,7 +18,8 @@
         "VITE_KAKAO_LOCAL_REDIRECT_URI",
         "VITE_UNION_VIEWER_ID",
         "VITE_UNION_VIEWER_PW",
-        "VITE_UNION_VIEWER_NUM"
+        "VITE_UNION_VIEWER_NUM",
+        "VITE_S3_BASE_URL"
       ],
       "inputs": [
         "$TURBO_DEFAULT$",

@@ -64,7 +64,7 @@ export default function AppView() {
 
     try {
       console.log('📦 Presigned URL 요청 중...');
-      const { presignedUrl } = await getPresignedUrl({ directory, fileName });
+      const { presignedUrl, fileUrl } = await getPresignedUrl({ directory, fileName });
       console.log('✅ Presigned URL 수신 완료:', presignedUrl);
 
       const response = await fetch(presignedUrl, {
@@ -77,7 +77,7 @@ export default function AppView() {
         throw new Error(`S3 업로드 실패: ${response.status} ${response.statusText}`);
       }
 
-      const objectUrl = presignedUrl.split('?')[0];
+      const objectUrl = fileUrl;
       console.log('✅ S3 업로드 성공! 접근 URL:', objectUrl);
       return objectUrl;
     } catch (error) {

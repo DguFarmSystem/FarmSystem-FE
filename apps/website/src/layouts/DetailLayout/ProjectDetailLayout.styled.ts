@@ -171,6 +171,7 @@ export const Thumbnail = styled.img<LayoutProps>`
   border-top: 1px solid var(--FarmSystem_DarkGrey, #999);
   border-bottom: 1px solid var(--FarmSystem_DarkGrey, #999);
   background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+  object-fit: cover;
 `;
 
 //프로젝트 디테일 시 이미지 없어서 그냥 맞추어서 작업

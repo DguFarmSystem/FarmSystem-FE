@@ -123,16 +123,15 @@ export const ImageContainer = styled.div<LayoutProps>`
   justify-content: center;
 `;
 
-export const Thumbnail = styled.img<LayoutProps>`
-  width: 800px;
+// 소식 이미지: 인스타 게시물(1:1, 4:5)이 잘리지 않도록 정사각 프레임에 contain
+export const CarouselImage = styled.img`
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #f5f5f5;
   border-radius: 4px;
-  // height: 533px;
-  flex-shrink: 0;
-  // aspect-ratio: 827.92/533.00;
-
-  border-top: 3px solid var(--FarmSystem_DarkGrey, #999);
-  border-bottom: 1px solid var(--FarmSystem_DarkGrey, #999);
-  background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+  cursor: zoom-in;
 `;
 
 export const ContentBox = styled.p<LayoutProps>`
@@ -150,23 +149,3 @@ export const ContentBox = styled.p<LayoutProps>`
 `;
 
 ////////////////////// 이미지 ////////////////////////
-export const ImageGallery = styled.div<{ $isMobile?: boolean; $isTablet?: boolean; $isDesktop?: boolean }>`
-  width: 100%;
-  max-width: 800px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 180px));
-  gap: 10px;
-`;
-
-export const Image = styled.img`
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;

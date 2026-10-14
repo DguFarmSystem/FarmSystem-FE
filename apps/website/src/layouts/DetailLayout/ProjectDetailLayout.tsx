@@ -1,4 +1,5 @@
 import * as S from "./ProjectDetailLayout.styled";
+import ImageCarousel from "./ImageCarousel";
 import GoBackArrow from "@/assets/LeftArrow.png";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import GithubIcon from "@/assets/githubLogo.png";
@@ -25,12 +26,17 @@ export default function ProjectDetailLayout({
   introduction = "(임시) 소개",
   tag = "(임시) 태그",
   thumbnailUrl = BlankThumbnailImg,
+  imageUrls = [],
   githubLink = "(임시) 링크",
   deploymentLink = "(임시) 링크",
   resourceLink = "(임시) 링크",
   participants = ["참여자1","참여자2"],
 }: ProjectDetailLayoutProps) {
   const { isMobile, isTablet, isDesktop } = useMediaQueries();
+
+  // 썸네일 + 갤러리 이미지를 한 캐러셀로 넘겨 봄
+  const images = [...new Set([thumbnailUrl, ...imageUrls].filter(Boolean))];
+  if (images.length === 0) images.push(BlankThumbnailImg);
 
   return (
       <S.DetailCard $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
@@ -91,10 +97,15 @@ export default function ProjectDetailLayout({
             </S.ParticipantsAndTagContainer>
           </S.ContentContainer>
         <S.ImageContainer  $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
-          <S.Thumbnail
-            $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}
-            src={thumbnailUrl || BlankThumbnailImg}
-            alt={title}
+          <ImageCarousel
+            images={images}
+            renderImage={(src, i) => (
+              <S.Thumbnail
+                $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}
+                src={src}
+                alt={`${title} ${i + 1}`}
+              />
+            )}
           />
         </S.ImageContainer>
         <S.ContentBox  $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
