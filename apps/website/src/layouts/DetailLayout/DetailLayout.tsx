@@ -3,6 +3,7 @@ import { useState } from "react";
 import GoBackArrow from "@/assets/LeftArrow.png";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import ImageModal from './ImageModal';
+import ImageCarousel from "./ImageCarousel";
 
 interface DetailLayoutProps {
   title?: string;
@@ -53,25 +54,13 @@ export default function DetailLayout({
           </S.Title>
         </S.TitleContainer>
         <S.ImageContainer  $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
-          <S.Thumbnail
-            $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}
-            src={thumbnailUrl}
-            alt={title}
+          <ImageCarousel
+            images={[...new Set([thumbnailUrl, ...imageUrls].filter(Boolean))]}
+            maxWidth="600px"
+            renderImage={(src, i) => (
+              <S.CarouselImage src={src} alt={`${title} ${i + 1}`} onClick={() => setSelectedImage(src)} />
+            )}
           />
-        </S.ImageContainer>
-        <S.ImageContainer  $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
-        {imageUrls && imageUrls.length > 0 && (
-          <S.ImageGallery $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
-            {imageUrls.map((url, index) => (
-              <S.Image
-                key={index}
-                src={url}
-                alt={`Image ${index + 1}`}
-                onClick={() => setSelectedImage(url)}
-              />
-            ))}
-          </S.ImageGallery>
-        )}
         </S.ImageContainer>
         {selectedImage && (
           <ImageModal

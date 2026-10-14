@@ -1,5 +1,5 @@
 import * as S from "./ProjectDetailLayout.styled";
-import { useState, useRef } from "react";
+import ImageCarousel from "./ImageCarousel";
 import GoBackArrow from "@/assets/LeftArrow.png";
 import useMediaQueries from "@/hooks/useMediaQueries";
 import GithubIcon from "@/assets/githubLogo.png";
@@ -37,9 +37,6 @@ export default function ProjectDetailLayout({
   // 썸네일 + 갤러리 이미지를 한 캐러셀로 넘겨 봄
   const images = [...new Set([thumbnailUrl, ...imageUrls].filter(Boolean))];
   if (images.length === 0) images.push(BlankThumbnailImg);
-  const [current, setCurrent] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-  const go = (delta: number) => setCurrent((i) => (i + delta + images.length) % images.length);
 
   return (
       <S.DetailCard $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
@@ -100,32 +97,16 @@ export default function ProjectDetailLayout({
             </S.ParticipantsAndTagContainer>
           </S.ContentContainer>
         <S.ImageContainer  $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
-          <S.Carousel
-            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
-            onTouchEnd={(e) => {
-              if (touchStartX.current === null) return;
-              const dx = e.changedTouches[0].clientX - touchStartX.current;
-              if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
-              touchStartX.current = null;
-            }}
-          >
-            <S.Thumbnail
-              $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}
-              src={images[current]}
-              alt={`${title} ${current + 1}`}
-            />
-            {images.length > 1 && (
-              <>
-                <S.CarouselButton $side="left" onClick={() => go(-1)} aria-label="이전 이미지">‹</S.CarouselButton>
-                <S.CarouselButton $side="right" onClick={() => go(1)} aria-label="다음 이미지">›</S.CarouselButton>
-                <S.CarouselDots>
-                  {images.map((_, i) => (
-                    <S.CarouselDot key={i} $active={i === current} onClick={() => setCurrent(i)} aria-label={`${i + 1}번 이미지`} />
-                  ))}
-                </S.CarouselDots>
-              </>
+          <ImageCarousel
+            images={images}
+            renderImage={(src, i) => (
+              <S.Thumbnail
+                $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}
+                src={src}
+                alt={`${title} ${i + 1}`}
+              />
             )}
-          </S.Carousel>
+          />
         </S.ImageContainer>
         <S.ContentBox  $isMobile={isMobile} $isTablet={isTablet} $isDesktop={isDesktop}>
           {content}
