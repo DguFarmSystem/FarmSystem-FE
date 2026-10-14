@@ -34,6 +34,7 @@ export interface DetailedProjectResponse {
   deploymentLink: string;
   resourceLink: string;
   participants: string[];
+  imageUrls?: string[];
   approvalStatus: string;
   track: Track;
 }

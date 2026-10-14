@@ -85,7 +85,7 @@ const ProjectDetail: React.FC = () => {
         content={`${project.introduction}\n\n${project.content}`}
         tag={getTrackName(project.track)}
         thumbnailUrl={project.thumbnailImageUrl}
-        imageUrls={project.bodyImageUrl ? [project.bodyImageUrl] : []}
+        imageUrls={project.imageUrls?.length ? project.imageUrls : project.bodyImageUrl ? [project.bodyImageUrl] : []}
         githubLink={project.githubLink}
         deploymentLink={project.deploymentLink}
         resourceLink={project.resourceLink}
