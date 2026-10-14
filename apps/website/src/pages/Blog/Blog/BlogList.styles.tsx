@@ -133,7 +133,7 @@ export const ListContainer = styled.div<{$isTablet: boolean; $isBig: boolean; $i
   }};
   
   /* 프로젝트 카드와 동일, gap을 clamp */
-  gap: clamp(10px, 2vw, 24px) clamp(10px, 1vw, 16px);
+  gap: clamp(12px, 2vw, 24px);
   
   justify-items: ${(props) => (props.$isMobile || props.$isTablet ? 'start' : 'start')};
   

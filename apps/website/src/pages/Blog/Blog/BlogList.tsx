@@ -3,7 +3,6 @@ import * as S from './BlogList.styles';
 import BlogItem, { BlogCategory } from './BlogItem';
 import useMediaQueries from '@/hooks/useMediaQueries';
 import { useBlogPage } from '@/hooks/useBlog';
-import { useLinkPreviewStore } from '@/stores/useLinkPreviewStore';
 
 import nextArrow_left from '@/assets/Icons/pagenation_2.png';
 import nextArrow_right from '@/assets/Icons/pagenation_2.png';
@@ -47,35 +46,6 @@ const BlogList: React.FC = () => {
   });
   // 디버깅 로그: 환경/페이지/사이즈/데이터 길이
   console.log('[BlogList] env', import.meta.env.MODE, 'page', currentPage, 'size', pageSize, 'len', blogData?.content?.length);
-
-  // zustand store
-  const getPreviewBatch = useLinkPreviewStore(state => state.getPreviewBatch);
-  const previewMap = useLinkPreviewStore(state => state.previewMap);
-  const loadingMap = useLinkPreviewStore(state => state.loadingMap);
-
-  // 3개씩 배치로 LinkPreview 요청
-  useEffect(() => {
-    if (!blogData?.content) {
-      console.log('[BlogList] preview-skip: no content');
-      return;
-    }
-    const urls = blogData.content.map(blog => blog.link);
-    const batchSize = 3;
-    console.log('[BlogList] preview-start', { total: urls.length, batchSize, sample: urls.slice(0, 3) });
-    const runBatches = async () => {
-      for (let i = 0; i < urls.length; i += batchSize) {
-        const slice = urls.slice(i, i + batchSize);
-        console.log('[BlogList] preview-batch', { from: i, to: i + slice.length, slice });
-        try {
-          await getPreviewBatch(slice);
-        } catch (e) {
-          console.error('[BlogList] preview-batch-error', e);
-        }
-      }
-      console.log('[BlogList] preview-done');
-    };
-    runBatches();
-  }, [blogData, getPreviewBatch]);
 
   // 디버깅: 로딩/에러 상태 변화 추적
   useEffect(() => {
@@ -168,8 +138,7 @@ const BlogList: React.FC = () => {
                     ? blog.categories.map(str=> convertStringToBlogCategory(str))
                     : [BlogCategory.ETC]
                   }
-                  metadata={previewMap.get(blog.link) || undefined}
-                  loading={loadingMap.get(blog.link) || false}
+                  metadata={{ title: blog.title ?? '', description: blog.description ?? '', image: blog.thumbnailUrl ?? '' }}
                 />
               ))}
             </S.ListContainer>   

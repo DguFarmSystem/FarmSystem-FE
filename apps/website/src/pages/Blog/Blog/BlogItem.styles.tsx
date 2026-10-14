@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // 스타일 컴포넌트 (블로그랑 같지만, 다를 수 있으니께)
 // 요긴 대충 짜서 해결
 export const Card = styled.a<{$isMobile: boolean; $isTablet: boolean;}>`
-  width: ${(props) => (props.$isMobile ? '130px' : props.$isTablet ? '240px' : '250px')};
+  width: 100%;
   height: ${(props) => (props.$isMobile ? '205px' : props.$isTablet ? '260px' : '279px')};
 
   border-radius: ${(props) => (props.$isMobile ? '10px' : '8px')};

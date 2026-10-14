@@ -50,6 +50,9 @@ enum ApiErrorMessages {
     link: string;
     categories: string[];
     approvalStatus: string;
+    title?: string;
+    description?: string;
+    thumbnailUrl?: string;
   }
 
   interface BlogListResponse {

@@ -123,7 +123,7 @@ export const ListContainer = styled.div<{$isTablet: boolean; $isBig: boolean; $i
   }};
   
   /* 블로그 카드와 동일, gap을 clamp로 반응형 설정? clamp 싱기싱기 */
-  gap: clamp(10px, 2vw, 24px) clamp(10px, 1vw, 16px);
+  gap: clamp(12px, 2vw, 24px);
   
   justify-items: ${(props) => (props.$isMobile || props.$isTablet ? 'start' : 'start')};
   
